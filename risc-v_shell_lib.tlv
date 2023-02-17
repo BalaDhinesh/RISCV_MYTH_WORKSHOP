@@ -1,11 +1,7 @@
 \m4_TLV_version 1d: tl-x.org
 \SV
    m4_include_lib(['https://raw.githubusercontent.com/stevehoover/warp-v_includes/2d6d36baa4d2bc62321f982f78c8fe1456641a43/risc-v_defs.tlv'])
-\SV
-   m4_ifelse_block(M4_MAKERCHIP, 1,['
-   '],['
-   module riscv(input clk, input reset, input [31:0] idata0, idata1, idata2, idata3, idata4, idata5, idata6, idata7, idata8, idata9, idata10, idata11, idata12, idata13, idata14, idata15, idata16, idata17, idata18, idata19, idata20, idata21, idata22, idata23, idata24, idata25, idata26, idata27, idata28, idata29, idata30, idata31, output reg [31:0] reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31);
-   '])  
+
 m4+definitions(['
    m4_define_vector(['M4_WORD'], 32)
    m4_define(['M4_EXT_I'], 1)
