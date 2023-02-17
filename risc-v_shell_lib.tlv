@@ -1,7 +1,10 @@
 \m4_TLV_version 1d: tl-x.org
 \SV
    m4_include_lib(['https://raw.githubusercontent.com/stevehoover/warp-v_includes/2d6d36baa4d2bc62321f982f78c8fe1456641a43/risc-v_defs.tlv'])
-
+   m4_ifelse_block(M4_MAKERCHIP, 1,['
+   '],['
+   module riscv(input clk, input reset, input [31:0] idata0, idata1, idata2, idata3, idata4, idata5, idata6, idata7, idata8, idata9, idata10, idata11, idata12, idata13, idata14, idata15, idata16, idata17, idata18, idata19, idata20, idata21, idata22, idata23, idata24, idata25, idata26, idata27, idata28, idata29, idata30, idata31, output reg [31:0] reg0, reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13, reg14, reg15, reg16, reg17, reg18, reg19, reg20, reg21, reg22, reg23, reg24, reg25, reg26, reg27, reg28, reg29, reg30, reg31);
+   '])  
 m4+definitions(['
    m4_define_vector(['M4_WORD'], 32)
    m4_define(['M4_EXT_I'], 1)
@@ -14,7 +17,7 @@ m4+definitions(['
 \TLV imem(@_stage)
    // Instruction Memory containing program defined by m4_asm(...) instantiations.
    @_stage
-      m4_ifelse_block(M4_MAKERCHIP, 1,['
+      
       \SV_plus
          // The program in an instruction memory.
          logic [31:0] instrs [0:M4_NUM_INSTRS-1];
@@ -23,6 +26,7 @@ m4+definitions(['
          };
       /M4_IMEM_HIER
          $instr[31:0] = *instrs\[#imem\];
+      m4_ifelse_block(M4_MAKERCHIP, 1,['
       ?$imem_rd_en
          $imem_rd_data[31:0] = /imem[$imem_rd_addr]$instr;
       '],['
@@ -94,6 +98,47 @@ m4+definitions(['
       ?$dmem_rd_en
          $dmem_rd_data[31:0] = /dmem[$dmem_addr]>>1$value;
       `BOGUS_USE($dmem_rd_data)
+
+\TLV outputs_fpga(_stage)
+   @_stage
+      \SV_plus
+         m4_ifelse_block(M4_MAKERCHIP, 1,['
+         '],['
+         always @ (posedge clk) begin    
+            *reg0  = |cpu/xreg[0]>>5$value;          
+            *reg1  = |cpu/xreg[1]>>5$value;
+            *reg2  = |cpu/xreg[2]>>5$value;
+            *reg3  = |cpu/xreg[3]>>5$value;
+            *reg4  = |cpu/xreg[4]>>5$value;
+            *reg5  = |cpu/xreg[5]>>5$value;      
+            *reg6  = |cpu/xreg[6]>>5$value;
+            *reg7  = |cpu/xreg[7]>>5$value;
+            *reg8  = |cpu/xreg[8]>>5$value;          
+            *reg9  = |cpu/xreg[9]>>5$value;
+            *reg10 = |cpu/xreg[10]>>5$value;
+            *reg11 = |cpu/xreg[11]>>5$value;
+            *reg12 = |cpu/xreg[12]>>5$value;
+            *reg13 = |cpu/xreg[13]>>5$value;      
+            *reg14 = |cpu/xreg[14]>>5$value;
+            *reg15 = |cpu/xreg[15]>>5$value;
+            *reg16 = |cpu/xreg[16]>>5$value;          
+            *reg17 = |cpu/xreg[17]>>5$value;
+            *reg18 = |cpu/xreg[18]>>5$value;
+            *reg19 = |cpu/xreg[19]>>5$value;
+            *reg20 = |cpu/xreg[20]>>5$value;
+            *reg21 = |cpu/xreg[21]>>5$value;      
+            *reg22 = |cpu/xreg[22]>>5$value;
+            *reg23 = |cpu/xreg[23]>>5$value;
+            *reg24 = |cpu/xreg[24]>>5$value;          
+            *reg25 = |cpu/xreg[25]>>5$value;
+            *reg26 = |cpu/xreg[26]>>5$value;
+            *reg27 = |cpu/xreg[27]>>5$value;
+            *reg28 = |cpu/xreg[28]>>5$value;
+            *reg29 = |cpu/xreg[29]>>5$value;      
+            *reg30 = |cpu/xreg[30]>>5$value;
+            *reg31 = |cpu/xreg[31]>>5$value;
+         end
+         '])
 
 \TLV cpu_viz(@_stage)
    m4_ifelse_block(m4_sp_graph_dangerous, 1, [''], ['
@@ -314,4 +359,4 @@ m4+definitions(['
                      '$value'.asInt(NaN).toString() + oldValStr);
                   this.getInitObject("mem").setFill(mod ? "blue" : "black");
                }
-   '])                   
+   '])        
