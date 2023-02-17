@@ -102,8 +102,7 @@ m4+definitions(['
 \TLV outputs_fpga(@_stage)
    @_stage
       \SV_plus
-         m4_ifelse_block(M4_MAKERCHIP, 1,['
-         '],['
+         m4_ifelse_block(M4_MAKERCHIP, 1,[''],['
          always @ (posedge clk) begin    
             *reg0  = |cpu/xreg[0]>>5$value;          
             *reg1  = |cpu/xreg[1]>>5$value;
