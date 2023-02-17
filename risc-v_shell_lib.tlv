@@ -99,7 +99,7 @@ m4+definitions(['
          $dmem_rd_data[31:0] = /dmem[$dmem_addr]>>1$value;
       `BOGUS_USE($dmem_rd_data)
 
-\TLV outputs_fpga(_stage)
+\TLV outputs_fpga(@_stage)
    @_stage
       \SV_plus
          m4_ifelse_block(M4_MAKERCHIP, 1,['
